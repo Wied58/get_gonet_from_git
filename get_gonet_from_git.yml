@@ -1,0 +1,29 @@
+--- 
+- 
+  hosts: PIS
+  become: true
+  become_method: sudo
+  become_user: root
+  tasks:
+
+    - apt:
+        update_cache: yes
+
+    - file:
+        path: /home/pi/test/
+        state: absent
+        
+
+    - git: 
+        dest: /home/pi/test
+        repo: "https://github.com/Wied58/gonet3.git"
+        update: yes
+
+    - file:
+        path: /home/pi/test/
+        state: directory
+        owner: pi 
+        group: pi
+        # when specifying mode using octal numbers, add a leading 0
+        mode: 0755
+        recurse: yes
