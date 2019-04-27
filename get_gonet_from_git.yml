@@ -1,25 +1,30 @@
 --- 
 - 
-  hosts: PIS
+  hosts: jeff_pis
   become: true
   become_method: sudo
   become_user: root
   tasks:
 
-    - apt:
-        update_cache: yes
+    - name: Ensure git is installed 
+      apt:
+        name: git
+        state: present
 
-    - file:
+    - name: Ensure destination directory is empty 
+      file:
         path: /home/pi/test/
         state: absent
         
 
-    - git: 
+    -  name: Get gonet3 repo from GitHub
+       git: 
         dest: /home/pi/test
         repo: "https://github.com/Wied58/gonet3.git"
         update: yes
 
-    - file:
+    - name: Change owevership and permissions
+      file:
         path: /home/pi/test/
         state: directory
         owner: pi 
