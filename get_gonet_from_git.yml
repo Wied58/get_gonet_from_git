@@ -11,10 +11,10 @@
         name: git
         state: present
 
-    - name: Ensure destination directory is empty 
-      file:
-        path: /home/pi/test/
-        state: absent
+#    - name: Ensure destination directory is empty 
+#      file:
+#        path: /home/pi/test/gonet3.py
+#        state: absent
         
 
     -  name: Get gonet3 repo from GitHub
@@ -22,6 +22,7 @@
         dest: /home/pi/test
         repo: "https://github.com/Wied58/gonet3.git"
         update: yes
+        force: yes
 
     - name: Change owevership and permissions
       file:
