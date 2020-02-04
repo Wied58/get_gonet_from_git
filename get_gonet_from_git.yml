@@ -11,24 +11,43 @@
         name: git
         state: present
 
+    - name: Install pip 2 
+      apt:
+         name: python-pip
+         state: present 
+
     - name: Ensure pip3 is installed 
       apt:
         name: python3-pip 
         state: present
 
+#    - name: Install Pillow and pyserial with pip
+#      pip:
+#        name:
+#          Pillow
+#          pyserial
+
     -  name: Get gonet3 repo from GitHub
        git: 
-        dest: /home/pi/test
+        dest: /home/pi/Tools/Camera
         repo: "https://github.com/Wied58/gonet3.git"
         update: yes
         force: yes
 
-    - name: Change owevership and permissions
+    - name: Change oweership and permissions
       file:
-        path: /home/pi/test/
+        path: /home/pi/Tools/Camera
         state: directory
         owner: pi 
         group: pi
         # when specifying mode using octal numbers, add a leading 0
         mode: 0755
         recurse: yes
+
+    - name: Transfer the script
+      copy: src=fetch_git_hash.sh dest=/home/pi/Tools/Camera mode=0777 
+
+    - name: Execute the script
+      command:  /home/pi/Tools/Camera/fetch_git_hash.sh
+      become_user: pi
+
