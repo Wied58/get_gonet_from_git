@@ -49,7 +49,7 @@
         update: yes
         force: yes
 
-    - name: Change oweership and permissions
+    - name: Change owership and permissions
       file:
         path: /home/pi/Tools/Camera
         state: directory
@@ -60,7 +60,7 @@
         recurse: yes
 
     - name: Transfer the update Version script
-      copy: src=fetch_git_hash.sh dest=/home/pi/Tools/Camera mode=0777 
+      copy: src=fetch_git_hash.sh dest=/home/pi/Tools/Camera mode=0755 
 
     - name: Execute the update Version script
       command:  /home/pi/Tools/Camera/fetch_git_hash.sh
