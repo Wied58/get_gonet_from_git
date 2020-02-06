@@ -11,21 +11,36 @@
         name: git
         state: present
 
-    - name: Install pip 2 
-      apt:
-         name: python-pip
-         state: present 
+#    - name: Install pip 2 
+#      apt:
+#         name: python-pip
+#         state: present 
+#
+#
+#    - name: Install setuptools 2 
+#      apt:
+#         name: python-setuptools
+#         state: present 
 
     - name: Ensure pip3 is installed 
       apt:
         name: python3-pip 
         state: present
 
-#    - name: Install Pillow and pyserial with pip
-#      pip:
-#        name:
-#          Pillow
-#          pyserial
+
+    - name: Ensure setuptools is installed 
+      apt:
+        name: python3-setuptools
+        state: present
+
+    - name: Install pyserial with pip
+      pip:
+        name: pyserial
+
+
+    - name: Install Pillow with pip
+      pip:
+        name: Pillow
 
     -  name: Get gonet3 repo from GitHub
        git: 
@@ -44,10 +59,12 @@
         mode: 0755
         recurse: yes
 
-    - name: Transfer the script
+    - name: Transfer the update Version script
       copy: src=fetch_git_hash.sh dest=/home/pi/Tools/Camera mode=0777 
 
-    - name: Execute the script
+    - name: Execute the update Version script
       command:  /home/pi/Tools/Camera/fetch_git_hash.sh
       become_user: pi
 
+
+## ansible-playbook -vvv get_gonet_from_git.yml -u pi --ask-pass --become -e 'ansible_python_interpreter=/usr/bin/python3'

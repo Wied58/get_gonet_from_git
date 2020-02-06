@@ -1,4 +1,6 @@
 #!/bin/bash
+CUR_PWD=`pwd`
+echo $CUR_DIR
 cd /home/pi/Tools/Camera
 VER=`git log --pretty=oneline | head -1 | awk '{print substr($1,1,5)}'`
 rm -f /home/pi/Tools/Version/*
