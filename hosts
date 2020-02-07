@@ -1,5 +1,5 @@
-[jeff_pis]
+[local]
 127.0.0.1
 
-[jeff_pis:vars]
+[local:vars]
 ansible_python_interpreter=/usr/bin/python3
