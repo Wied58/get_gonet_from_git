@@ -44,14 +44,14 @@
 
     -  name: Get gonet3 repo from GitHub
        git: 
-        dest: /home/pi/Tools/Camera
+        dest: /home/pi/Tools/git_repo
         repo: "https://github.com/Wied58/gonet3.git"
         update: yes
         force: yes
 
     - name: Change owership and permissions
       file:
-        path: /home/pi/Tools/Camera
+        path: /home/pi/Tools/git_repo
         state: directory
         owner: pi 
         group: pi
@@ -61,6 +61,18 @@
 
     - name: Transfer the update Version script
       copy: src=fetch_git_hash.sh dest=/home/pi/Tools/Camera mode=0755 
+
+    - name: Ansible copy files remote to remote
+      copy:
+        src: /home/pi/Tools/git_repo/gonet3.py
+        dest: /home/pi/Tools/Camera
+        remote_src: yes
+
+#    - name: Ansible copy files remote to remote
+#      copy:
+#        src: /home/pi/Tools/git_repo/fetch_git_hash.sh
+#        dest: /home/pi/Tools/Camera
+#        remote_src: yes
 
     - name: Execute the update Version script
       command:  /home/pi/Tools/Camera/fetch_git_hash.sh
